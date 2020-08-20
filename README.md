@@ -14,13 +14,13 @@ HbA1c is a measure of how glycated one's red blood cells are. This gives a bette
 
 ## The Model
 
-We used a logistic regression model to enable interpreting our coefficients and drawing relative comparisons between features. 
+We used a logistic regression model to enable interpreting our coefficients and drawing relative comparisons between features. A non-polynomial model performed best and allowed for easier interpretation of coefficients. We also tried a decision tree model, but it consistently performed worse than our logistic regression even after iterative improvments using SMOTE, tomek links, and gridsearch. 
 
 ### Data Collection & Cleaning
 
 Our data set was a subset of some 75 million inpatient visits between 1998 and 2008. The specific dataset consists of 100,000 inpatient visits for only diabetic patients. Because this set spans ten years, we had to remove repeat visits as some patients were admitted several times in that period. The datset also had 25 features for specific diabetic treatments that had to be dropped as many were not used by any of our observations.
 
-Show some EDA
+![](Images/Readmit_rate.png) 
 
 ### Feature Engineering
 
@@ -28,19 +28,17 @@ We observed that the effect of age on readmittance was clearly different between
 
 From outside research, we know that the HbA1C test is very important for assessing long-term management of glucose levels in the blood. However, less than 20% of inpatient visits resulted in a HbA1c test. Furthermore, if a patient was given a HbA1c test, one would hope that patient's medication would be adjusted if necessary. As we had a feature for 'Change in Meds' we were able to engineer a feature for when a patient likely needed an adjustment and if it was done or not. 
 
-EDA for HbA1c
+![](Images/HbA1c_test.png) 
 
 ## Insights and Suggestions
 
-The main insight
+Our main insight is that patients listed with diabetes as a top diagnosis for their inpatient visit were more likely to be later readmitted, both within and after 30 days. Therefore, steps that could lower diabetic visits would reduce rates of readmission. This is generally accomplished through routine testing of blood sugar levels and, less often, HbA1c tests to measure long-term glucose levels. Of diabetic patients, only 18.5% received a HbA1c test and of those, more than 50% had a change in medication during the visit, presumably due to their results. Indeed, patients who received a normal HbA1c result were less likely to be readmitted. 
 
-Vis
+![](Images/Readmit_vs_age.png) 
 
-Some lesser insights
+Age also played a large part in readmission rate. Generally, older patients had higher rates than younger patients. Patients 60-100 were more likely to be readmitted within 30 days, and patients 0-30 were less likely to be readmitted in either case. While not surprising, physicians should focus on testing older patients with HbA1c. 
 
-Vis
-
-Recommendations
+Interestingly, patients who did not receive even the daily, point blood sugar test were less likely to be readmitted within 30 days, but more likely to be readmitted after 30 days. This is potentially because arising issues went undiscovered during the inpatient visit necessitating a later visit.
 
 ## Future Directions
 
