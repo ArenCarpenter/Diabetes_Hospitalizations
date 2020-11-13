@@ -2,11 +2,19 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+from PIL import Image
 
+st.header("Predicting Diabetes Rehospitalizations")
 st.write("""
-# Diabetes Rehospitalization
+This is a Streamlit web app created so users could explore my multiple logistic regression model predicting the need for
+rehospitalization of diabetic patients based on a numnber of electronic health records (EHR). 
 
-Testing framework for web apps with modeling.
+This [data](https://data.world/uci/diabetes-130-us-hospitals-for-years-1999-2008) was collected from diabetic 
+patients from 1998 - 2008 and only consists of inpatient hospitalizations lasting at least 1 day. There are about 
+100,000 observations.
+
+Use the sidebar to select input features. Each feature defaults to its mean or mode, as appropriate.
+
 """)
 
 st.sidebar.header('User Input Features')
@@ -134,11 +142,13 @@ for col in encode:
     dummy = pd.get_dummies(df[col], prefix=col)
     df = pd.concat([df, dummy], axis=1)
     del df[col]
-
 df = df[:1]
 
+#Write out input selection
+st.subheader('User Input (Pandas DataFrame)')
 st.write(df)
 
+#Load in model
 load_clf = pickle.load(open('diabetes_model.pkl', 'rb'))
 
 # Apply model to make predictions
@@ -146,8 +156,54 @@ prediction = load_clf.predict(df)
 prediction_proba = load_clf.predict_proba(df)
 
 st.subheader('Prediction')
+st.write("""
+This is a multi-class classification model. Options are: 
+
+1) 'NO' --> this patient was not readmitted within a year, 
+
+2) '<30' --> this patient was readmitted within 30 days, or 
+
+3) '>30' --> this patient was readmitted after 30 days. 
+
+This generally corresponds to the severity of the patient's diabetes as well as the specific care, or lack thereof, during the visit.
+""")
+
 readmitted = np.array(['NO','<30','>30'])
 st.write(readmitted[prediction])
 
 st.subheader('Prediction Probability')
+st.write("""
+0 --> 'NO'
+
+1 --> '<30'
+
+2 --> '>30'
+""")
 st.write(prediction_proba)
+
+st.subheader('Exploratory Data Analysis')
+st.write("""
+We identified some important features in the readmittance rate that you can explore below. To begin, here is the distribution
+of the classes in the original data set. We see that a majority of patients are not readmitted within a year. Patients that 
+are readmitted often have complications to their diabetes or the specific care recieved.
+""")
+st.image(Image.open('Images/Readmit_rate.png'), width = 500)
+
+st.write("""
+Now looking at the patient population given the long-term blood sugar HbA1c test, we see only about 20% of patients received
+this test, but, of those, 50% then had their medication changed and were less likely to be readmitted.
+""")
+st.image(Image.open('Images/HbA1c_test.png'), width = 500)
+
+st.write("""
+Finally, we see that age plays an important role. As expected, older patients have more complications due to their diabetes.
+Age was binned according to this chart into 0-30, 30-60, and 60-100.
+""")
+st.image(Image.open('Images/Readmit_vs_age.png'), width = 500)
+
+st.subheader('More Information')
+st.write("""
+For a deeper dive into the project, please visit the [repo on GitHub](https://github.com/ArenCarpenter/Diabetes_Hospitalizations) 
+where you can find all the code used in analysis, modeling, visualizations, etc. You can also read my 
+[articles](https://arencarpenter.medium.com/) in Towards Data Science on my other projects. 
+""")
