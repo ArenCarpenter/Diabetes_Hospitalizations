@@ -1,7 +1,8 @@
 # Diabetes Hospitalizations
 
 Aren Carpenter & JP Ventura 
-Data Science Cohort 062220
+
+An interactive version of the final model is hosted on a [web app](https://diabetes-hospitalization.herokuapp.com/) on Heroku for those who want to play around!
 
 ## Introduction
 
@@ -45,3 +46,5 @@ Interestingly, patients who did not receive even the daily, point blood sugar te
 We encourage physicians to offer both blood sugar and HbA1c tests for all diabetic inpatient visits regardless of the main cause of visit. Frequent testing will better capture emerging complications than waiting for adverse symptoms. This sort of preventative testing is done in ICUs already because of the clear health benefits, but it could be utilized in all inpatient cases.
 
 Even with more than 60,000 observations, our dataset greatly underestimates the true population of diabetic patients in the United States. An interesting next step would be to incorporate financial elements to the analysis. Diabetes treatment is quite expensive for the individual, on average $17,000 per year per patient, and for society, $1 of every $4 healthcare spending is diabetes-related. We would attempt to assign cost/benefit analysis to various testing and treatment options to optimize care and minimize costs. 
+
+An interactive version of the final model is hosted on a [web app](https://diabetes-hospitalization.herokuapp.com/) on Heroku for those who want to play around!
