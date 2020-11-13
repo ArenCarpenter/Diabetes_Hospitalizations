@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import pickle
 from PIL import Image
+from sklearn.linear_model import LogisticRegressionCV
 
 st.header("Predicting Diabetes Rehospitalizations")
 st.write("""
