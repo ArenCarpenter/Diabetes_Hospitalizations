@@ -1,3 +1,8 @@
+"""
+This is a web app created with Streamlit to host this project. Feel free to use this file as a guide or visit my
+article on the topic (linked below).
+"""
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -6,6 +11,8 @@ from PIL import Image
 
 st.header("Predicting Diabetes Rehospitalizations")
 st.write("""
+Created by Aren Carpenter
+
 This is a Streamlit web app created so users could explore my multiple logistic regression model predicting the need for
 rehospitalization of diabetic patients based on a numnber of electronic health records (EHR). 
 
